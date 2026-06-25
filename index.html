@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Français 3 — Entraînement STAMP</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Français 3">
+<meta name="theme-color" content="#2E5E8C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232E5E8C'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='white' font-family='Georgia,serif' font-style='italic'%3EFr%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232E5E8C'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='white' font-family='Georgia,serif' font-style='italic'%3EFr%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF1F4; --surface:#FFFFFF; --surface-2:#F6F8FA;
+    --ink:#1E2A3A; --muted:#5C6B7A; --line:#DCE3EA;
+    --brand:#2E5E8C; --brand-soft:#E5EEF5;
+    --accent:#C04A6E; --accent-soft:#F7E3EA;
+    --good:#2F8F63; --good-soft:#E3F3EB;
+    --warn:#B07A1E; --warn-soft:#F8EFDC;
+    --bad:#C0455C; --bad-soft:#F8E5E9;
+    --r:16px; --r-sm:10px;
+    --shadow:0 1px 2px rgba(30,42,58,.06),0 8px 24px rgba(30,42,58,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-size:16px; line-height:1.5; -webkit-text-size-adjust:100%;
+    padding-bottom:calc(40px + env(safe-area-inset-bottom));
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 16px}
+  h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.15;margin:0}
+
+  /* Header */
+  header{
+    position:sticky;top:0;z-index:50;background:rgba(238,241,244,.92);
+    backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line);
+    padding-top:env(safe-area-inset-top);
+  }
+  .head-row{display:flex;align-items:center;gap:12px;padding:12px 0 10px}
+  .mark{font-family:Fraunces,serif;font-style:italic;font-weight:600;font-size:22px;color:var(--brand);white-space:nowrap}
+  .mark small{font-style:normal;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;line-height:1;margin-top:2px}
+  .prog{flex:1;min-width:0}
+  .prog-bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+  .prog-fill{height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--accent));border-radius:99px;transition:width .5s ease}
+  .prog-label{font-size:11px;color:var(--muted);margin-top:4px;display:flex;justify-content:space-between}
+
+  /* Tabs */
+  nav{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  nav::-webkit-scrollbar{display:none}
+  .tab{
+    flex:0 0 auto;border:1px solid var(--line);background:var(--surface);
+    color:var(--muted);font-weight:600;font-size:14px;padding:9px 14px;border-radius:99px;
+    cursor:pointer;display:flex;align-items:center;gap:7px;white-space:nowrap;transition:all .18s
+  }
+  .tab .dot{width:7px;height:7px;border-radius:99px;background:var(--line);transition:background .3s}
+  .tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .tab.done .dot{background:var(--good)}
+  .tab[aria-selected="true"] .dot{background:#fff}
+
+  /* Sections */
+  main{padding-top:18px}
+  section[role=tabpanel]{display:none;animation:fade .35s ease}
+  section[role=tabpanel].active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .lede h2{font-size:26px;margin-bottom:6px}
+  .lede .eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px}
+  .lede p{color:var(--muted);margin:0 0 10px}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:14px 0;box-shadow:var(--shadow)}
+  .card > h3{font-size:18px;margin-bottom:4px}
+  .card .help{font-size:13.5px;color:var(--muted);margin:6px 0 14px;padding:9px 12px;background:var(--surface-2);border-left:3px solid var(--brand);border-radius:0 var(--r-sm) var(--r-sm) 0}
+
+  .q{padding:13px 0;border-top:1px solid var(--line)}
+  .q:first-of-type{border-top:0}
+  .q-text{font-size:15.5px;line-height:1.9}
+  .q-text .num{color:var(--accent);font-weight:700;font-family:Fraunces,serif;margin-right:6px}
+  input.blank{
+    font:inherit;font-size:15px;border:none;border-bottom:2px solid var(--brand);
+    background:var(--brand-soft);border-radius:6px 6px 0 0;padding:3px 8px;margin:0 2px;
+    min-width:78px;max-width:100%;color:var(--ink);transition:all .2s
+  }
+  input.blank:focus{outline:none;background:#fff;border-bottom-color:var(--accent)}
+  input.blank.full{display:block;width:100%;margin-top:8px;min-width:0}
+  input.ok{background:var(--good-soft);border-bottom-color:var(--good)}
+  input.no{background:var(--bad-soft);border-bottom-color:var(--bad)}
+  input.near{background:var(--warn-soft);border-bottom-color:var(--warn)}
+
+  .q-actions{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
+  .fb{font-size:14px;font-weight:600;min-height:20px}
+  .fb.ok{color:var(--good)} .fb.no{color:var(--bad)} .fb.near{color:var(--warn)}
+  .reveal{font-size:13.5px;color:var(--muted);margin-top:6px}
+  .reveal b{color:var(--ink)}
+
+  button{font-family:inherit}
+  .btn{border:none;border-radius:99px;font-weight:600;font-size:14px;padding:9px 16px;cursor:pointer;transition:transform .08s,filter .15s}
+  .btn:active{transform:scale(.97)}
+  .btn-primary{background:var(--brand);color:#fff}
+  .btn-accent{background:var(--accent);color:#fff}
+  .btn-ghost{background:var(--surface-2);color:var(--ink);border:1px solid var(--line)}
+  .btn-sm{padding:6px 12px;font-size:13px}
+
+  .section-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:6px;flex-wrap:wrap}
+  .score{font-weight:700;font-family:Fraunces,serif;color:var(--brand)}
+
+  /* vocab */
+  details.vocab{border:1px solid var(--line);border-radius:var(--r-sm);margin:10px 0;overflow:hidden;background:var(--surface)}
+  details.vocab>summary{cursor:pointer;list-style:none;padding:13px 14px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+  details.vocab>summary::-webkit-details-marker{display:none}
+  details.vocab>summary::after{content:"+";font-size:20px;color:var(--brand);font-weight:400}
+  details.vocab[open]>summary::after{content:"–"}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  td{padding:9px 14px;border-top:1px solid var(--line);vertical-align:top}
+  td.fr{font-weight:600;width:38%}
+  td.en{color:var(--muted);width:30%}
+  td.ex{color:var(--ink);font-size:13px}
+
+  /* reading */
+  .passage{background:var(--surface-2);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:14px 16px;margin:12px 0;font-size:15.5px;line-height:1.7}
+  .passage h4{font-family:Fraunces,serif;margin:0 0 8px;font-size:17px}
+  .done-row{display:flex;align-items:center;gap:9px;margin-top:8px;font-size:14px;color:var(--muted)}
+  .done-row input{width:18px;height:18px;accent-color:var(--good)}
+
+  /* writing */
+  textarea{width:100%;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:var(--r-sm);padding:11px;background:var(--surface-2);resize:vertical;min-height:120px;color:var(--ink)}
+  textarea:focus{outline:none;border-color:var(--brand);background:#fff}
+  .wc{font-size:12.5px;color:var(--muted);margin-top:6px}
+  .model{margin-top:10px;background:var(--good-soft);border:1px solid #Bfe3cf;border-radius:var(--r-sm);padding:12px;font-size:14.5px;line-height:1.65;display:none}
+  .model.show{display:block}
+  .model .label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--good);font-weight:700;margin-bottom:6px}
+  .checklist{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--muted)}
+  .checklist li{margin:3px 0}
+
+  /* listening + speaking */
+  .res{display:block;border:1px solid var(--line);border-radius:var(--r-sm);padding:13px 14px;margin:10px 0;background:var(--surface);text-decoration:none;color:inherit;transition:border-color .15s,transform .08s}
+  .res:active{transform:scale(.99)}
+  .res:hover{border-color:var(--brand)}
+  .res .t{font-weight:700;color:var(--brand)}
+  .res .lvl{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.06em}
+  .res .d{font-size:13.5px;color:var(--muted);margin-top:3px}
+  .res .go{float:right;color:var(--muted)}
+  .field{margin:10px 0}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+  .field input,.field select{width:100%;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:var(--r-sm);padding:10px;background:var(--surface-2)}
+  .field input:focus{outline:none;border-color:var(--brand);background:#fff}
+  .logs{margin-top:12px}
+  .log-item{font-size:13.5px;border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;margin:8px 0;background:var(--surface-2);position:relative}
+  .log-item b{color:var(--brand)}
+  .log-item .del{position:absolute;top:8px;right:10px;color:var(--muted);background:none;border:none;cursor:pointer;font-size:18px;line-height:1}
+  .rec-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .rec-dot{width:10px;height:10px;border-radius:99px;background:var(--bad);display:inline-block}
+  audio{width:100%;margin-top:8px}
+  .stars{font-size:24px;letter-spacing:4px;cursor:pointer;user-select:none;color:var(--line)}
+  .stars span.on{color:var(--warn)}
+
+  .note{font-size:12.5px;color:var(--muted);margin-top:14px;text-align:center;padding:0 6px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 18px;border-radius:99px;font-size:13.5px;font-weight:600;opacity:0;pointer-events:none;transition:all .3s;z-index:100}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .reset{background:none;border:none;color:var(--muted);font-size:12px;text-decoration:underline;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="head-row">
+      <div class="mark">Français&nbsp;3<small>Entraînement STAMP</small></div>
+      <div class="prog">
+        <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+        <div class="prog-label"><span id="progText">0 / 6 sections</span><span id="progPct">0%</span></div>
+      </div>
+    </div>
+    <nav id="tabs" role="tablist"></nav>
+  </div>
+</header>
+
+<main class="wrap" id="main"></main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   DATA
+   ============================================================ */
+const norm = s => (s||"").toString().trim().toLowerCase()
+  .replace(/[’´`]/g,"'").replace(/\s+/g," ").replace(/[.,;:!?]/g,"").trim();
+const deAccent = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+const looseNorm = s => deAccent(norm(s)).replace(/'/g," ").replace(/\s+/g," ").trim();
+
+const GRAMMAR = [
+  { id:"g1a", title:"1 · Passé composé vs. imparfait",
+    help:"Imparfait = description, habitude, action en cours. Passé composé = action terminée et précise.",
+    items:[
+      {t:"Quand j'§ (être) petit(e), je § (jouer) au foot tous les jours.", a:[["étais"],["jouais"]]},
+      {t:"Hier soir, nous § (aller) au cinéma avec des amis.", a:[["sommes allés","sommes allées","sommes allé","sommes allée"]]},
+      {t:"Il § (faire) très beau quand elle § (sortir) de la maison.", a:[["faisait"],["est sortie","est sorti"]]},
+      {t:"Pendant que je § (lire), le téléphone § (sonner).", a:[["lisais"],["a sonné"]]},
+      {t:"Tous les étés, ma famille § (voyager), mais l'an dernier nous § (rester) chez nous.", a:[["voyageait"],["sommes restés","sommes restées","sommes resté"]]}
+    ]},
+  { id:"g1b", title:"2 · Le futur simple",
+    help:"Attention aux radicaux irréguliers : aller→ir-, avoir→aur-, être→ser-, faire→fer-, venir→viendr-, pouvoir→pourr-.",
+    items:[
+      {t:"je § (parler)", a:[["parlerai"]]},
+      {t:"tu § (finir)", a:[["finiras"]]},
+      {t:"il § (aller)", a:[["ira"]]},
+      {t:"nous § (avoir)", a:[["aurons"]]},
+      {t:"vous § (faire)", a:[["ferez"]]},
+      {t:"elles § (être)", a:[["seront"]]},
+      {t:"on § (venir)", a:[["viendra"]]},
+      {t:"je § (pouvoir)", a:[["pourrai"]]}
+    ]},
+  { id:"g1c", title:"3 · Le conditionnel et les phrases avec « si »",
+    help:"Politesse et hypothèses. Rappel : Si + imparfait → conditionnel.",
+    items:[
+      {t:"Je § (vouloir) un café, s'il vous plaît.", a:[["voudrais"]]},
+      {t:"Tu § (devoir) étudier un peu plus.", a:[["devrais"]]},
+      {t:"Nous § (aimer) visiter le Sénégal un jour.", a:[["aimerions"]]},
+      {t:"Si j'avais le temps, je § (voyager) partout.", a:[["voyagerais"]]},
+      {t:"Si tu étudiais davantage, tu § (réussir) à l'examen.", a:[["réussirais"]]},
+      {t:"S'il faisait beau demain, nous § (aller) à la plage.", a:[["irions"]]}
+    ]},
+  { id:"g1d", title:"4 · Le subjonctif présent",
+    help:"Après il faut que, je veux que, bien que, il est important que, souhaiter que…",
+    items:[
+      {t:"Il faut que tu § (être) à l'heure.", a:[["sois"]]},
+      {t:"Je veux que vous § (faire) attention.", a:[["fassiez"]]},
+      {t:"Bien qu'il § (avoir) raison, il est trop direct.", a:[["ait"]]},
+      {t:"Il est important que nous § (finir) ce projet.", a:[["finissions"]]},
+      {t:"Mes parents souhaitent que je § (aller) à l'université.", a:[["aille"]]}
+    ]},
+  { id:"g1e", title:"5 · Les pronoms (COD, COI, y, en)",
+    help:"Réécris la phrase en remplaçant les mots indiqués par le bon pronom. Écris la phrase entière.",
+    loose:true,
+    items:[
+      {t:"Je vois Marie au parc.  → §full", a:[["je la vois au parc","je la vois"]]},
+      {t:"Il parle à ses parents tous les soirs.  → §full", a:[["il leur parle tous les soirs","il leur parle"]]},
+      {t:"Nous allons à Paris en train.  → §full", a:[["nous y allons en train","nous y allons"]]},
+      {t:"Tu as des pommes ?  → (Oui,) §full", a:[["oui j'en ai","j'en ai","oui jen ai","jen ai"]]},
+      {t:"Elle donne le livre à Paul.  → §full", a:[["elle le lui donne"]]}
+    ]},
+  { id:"g1f", title:"6 · Les pronoms relatifs (qui, que, dont, où)",
+    help:"qui = sujet · que = objet · dont = de (de qui/duquel) · où = lieu/temps.",
+    items:[
+      {t:"C'est le livre § j'ai acheté hier.", a:[["que","qu'"]]},
+      {t:"Voilà la femme § habite à côté de chez moi.", a:[["qui"]]},
+      {t:"Le film § je parle vient de sortir.", a:[["dont"]]},
+      {t:"C'est la ville § je suis né(e).", a:[["où"]]},
+      {t:"J'ai un ami § le frère est acteur.", a:[["dont"]]}
+    ]},
+  { id:"g1g", title:"7 · Comparatif et superlatif",
+    help:"(+) plus · (=) aussi · (−) moins … que. Irréguliers : bon→meilleur, bien→mieux.",
+    items:[
+      {t:"Marie est § grande § Paul. (+)", a:[["plus"],["que"]]},
+      {t:"Ce livre est § intéressant § l'autre. (=)", a:[["aussi"],["que"]]},
+      {t:"Le train est § rapide § la voiture. (−)", a:[["moins"],["que"]]},
+      {t:"C'est le restaurant § de la ville. (le plus cher)", a:[["le plus cher"]]},
+      {t:"Elle parle français § que moi. (bien → ?)", a:[["mieux"]]}
+    ]}
+];
+
+const VOCAB_TABLES = [
+  { title:"Les voyages et les transports", rows:[
+    ["un billet (aller-retour)","a (round-trip) ticket","Je voudrais un billet aller-retour."],
+    ["la gare / l'aéroport","train station / airport","Le train part de la gare à 9 h."],
+    ["à l'étranger","abroad","Cet été, je vais voyager à l'étranger."],
+    ["faire ses valises","to pack one's bags","Je dois faire mes valises ce soir."],
+    ["l'horaire (m.)","the schedule","Vérifie l'horaire des trains."]
+  ]},
+  { title:"L'environnement et la société", rows:[
+    ["le réchauffement climatique","global warming","Le réchauffement climatique nous inquiète."],
+    ["recycler / le recyclage","to recycle / recycling","Il faut recycler le plastique."],
+    ["la pollution","pollution","La pollution de l'air augmente."],
+    ["protéger la planète","to protect the planet","Nous devons protéger la planète."],
+    ["le développement durable","sustainable development","On parle de développement durable."]
+  ]},
+  { title:"La technologie, les médias et l'avenir", rows:[
+    ["les réseaux sociaux","social media","Je passe trop de temps sur les réseaux sociaux."],
+    ["un ordinateur portable","a laptop","Mon ordinateur portable est en panne."],
+    ["télécharger","to download","Je vais télécharger l'application."],
+    ["chercher un emploi","to look for a job","Après le lycée, elle cherchera un emploi."],
+    ["avoir l'intention de","to intend to","J'ai l'intention d'étudier la médecine."]
+  ]}
+];
+
+const VOCAB_QUIZ = { id:"v2d", title:"Complète avec un mot logique",
+  help:"Utilise le vocabulaire des listes ci-dessus.",
+  items:[
+    {t:"Avant de partir en voyage, je dois § mes valises.", a:[["faire"]]},
+    {t:"Pour § la planète, il faut réduire la §.", a:[["protéger"],["pollution"]]},
+    {t:"Mon frère passe des heures sur les § chaque jour.", a:[["réseaux sociaux"]]},
+    {t:"Nous prendrons le train ; rendez-vous à la § à 8 h.", a:[["gare"]]},
+    {t:"Après le lycée, elle a § d'étudier l'ingénierie.", a:[["l'intention","intention"]]}
+  ]};
+
+const READING = {
+  title:"Le projet de Léa",
+  text:["Léa a dix-sept ans et elle habite à Lyon avec ses parents et son petit frère. L'année prochaine, elle terminera le lycée et elle voudrait étudier les sciences de l'environnement à l'université. « Depuis que je suis petite, la nature me passionne », explique-t-elle. « Quand j'étais enfant, je passais tous mes étés à la campagne chez mes grands-parents, et j'ai appris à respecter la planète. »",
+    "Cet été, Léa a participé à un projet de recyclage dans son quartier. Avec d'autres jeunes, elle a organisé des ateliers pour expliquer aux habitants comment réduire leurs déchets. « Si chaque personne faisait un petit effort, nous pourrions changer beaucoup de choses », dit-elle. Après l'université, Léa a l'intention de travailler pour une organisation qui protège l'environnement, peut-être à l'étranger."],
+  questions:[
+    {q:"Où habite Léa et avec qui ?", m:"Léa habite à Lyon avec ses parents et son petit frère."},
+    {q:"Qu'est-ce qu'elle voudrait étudier à l'université ? Pourquoi ?", m:"Elle voudrait étudier les sciences de l'environnement parce que la nature la passionne depuis l'enfance."},
+    {q:"Qu'est-ce qu'elle a fait cet été ? Décris le projet.", m:"Elle a participé à un projet de recyclage et a organisé des ateliers pour aider les habitants à réduire leurs déchets."},
+    {q:"Quelles sont ses intentions après l'université ?", m:"Elle a l'intention de travailler pour une organisation qui protège l'environnement, peut-être à l'étranger."},
+    {q:"Trouve un verbe au passé composé, un à l'imparfait et un au futur.", m:"Passé composé : a participé / a organisé · Imparfait : étais / passais · Futur : terminera."}
+  ]};
+
+const WRITING = [
+  { id:"w1", title:"Te présenter", tense:"présent",
+    prompt:"Présente-toi : ton nom, ton âge, ta famille, où tu habites et ce que tu aimes faire. Utilise le présent et des connecteurs (et, mais, parce que, aussi).",
+    check:["Présent correct","Au moins 6 phrases","Connecteurs utilisés"],
+    model:"Bonjour ! Je m'appelle Emma et j'ai dix-sept ans. J'habite à Plano, au Texas, avec mes parents et mon frère. J'aime beaucoup la musique et le sport, mais ma passion, c'est le français. Le week-end, je joue au tennis avec mes amis parce que c'est amusant. J'étudie aussi le piano depuis cinq ans." },
+  { id:"w2", title:"Un week-end mémorable", tense:"passé",
+    prompt:"Raconte un week-end ou un voyage mémorable. Utilise le passé composé (les actions) ET l'imparfait (le décor, le temps, les sentiments).",
+    check:["Passé composé pour les actions","Imparfait pour le décor","Le temps / les émotions décrits"],
+    model:"L'été dernier, je suis allée à Chicago avec ma famille. Il faisait très chaud et la ville était magnifique. Nous avons visité un grand musée et nous avons mangé une pizza délicieuse. Pendant que je me promenais au bord du lac, j'ai vu un beau coucher de soleil. C'était un week-end inoubliable." },
+  { id:"w3", title:"Un courriel à un(e) ami(e)", tense:"futur",
+    prompt:"Écris un courriel à un(e) ami(e) français(e) pour décrire tes projets pour l'été prochain. Utilise le futur simple et des marqueurs (d'abord, ensuite, enfin).",
+    check:["Formule d'ouverture et de clôture","Futur simple","Marqueurs de temps","Une question à l'ami(e)"],
+    model:"Salut Camille ! Comment vas-tu ? Je t'écris pour te parler de mes projets pour l'été prochain. D'abord, je travaillerai dans un café au mois de juin. Ensuite, ma famille et moi voyagerons en France pendant deux semaines : nous visiterons Paris et nous irons à la plage à Nice. Enfin, je me reposerai avant la rentrée. Et toi, que feras-tu ? À bientôt !" },
+  { id:"w4", title:"Ton opinion", tense:"opinion + subjonctif",
+    prompt:"Donne ton opinion : « Les réseaux sociaux : bons ou mauvais pour les jeunes ? » Utilise des phrases d'opinion (à mon avis, je pense que, il est important que…) et au moins un subjonctif.",
+    check:["Opinion claire","Un argument pour et un contre","Au moins un subjonctif","Une conclusion"],
+    model:"À mon avis, les réseaux sociaux ont des avantages et des inconvénients pour les jeunes. D'un côté, ils permettent de rester en contact avec ses amis et de découvrir le monde. D'un autre côté, je pense qu'ils prennent trop de temps. Il est important que les jeunes fassent attention et qu'ils limitent leur temps d'écran. Bien que ces applications soient utiles, l'équilibre reste essentiel." }
+];
+
+const LISTENING = [
+  { t:"TV5MONDE – Apprendre le français", lvl:"A2 / B1", url:"https://apprendre.tv5monde.com/fr",
+    d:"Clips vidéo courts avec exercices auto-corrigés, classés par niveau. Le plus proche du format STAMP." },
+  { t:"Le français facile avec RFI", lvl:"A1–C2", url:"https://francaisfacile.rfi.fr/fr/",
+    d:"Le « Journal en français facile » (10 min, lent et clair) avec transcription et exercices." },
+  { t:"InnerFrench (podcast)", lvl:"B1+", url:"https://innerfrench.com/",
+    d:"Podcast en français lent sur des sujets intéressants. Écoute avec la transcription au début." },
+  { t:"1 jour, 1 question (Lumni)", lvl:"A2–B1", url:"https://www.lumni.fr/programme/1-jour-1-question",
+    d:"Vidéos d'1–2 min qui répondent à une question en français clair. Sous-titrées." },
+  { t:"Le Point du FLE – Compréhension orale", lvl:"A1–B2", url:"https://www.lepointdufle.net/p/comprehensionaudio.htm",
+    d:"Annuaire d'exercices d'écoute classés par niveau — pour varier." }
+];
+
+const SPEAKING = [
+  { id:"s1", t:"Présente-toi : nom, âge, famille, passe-temps.", v:"je m'appelle · j'ai … ans · j'habite · j'aime" },
+  { id:"s2", t:"Décris ta ville ou ton quartier. Qu'est-ce qu'on peut y faire ?", v:"il y a · on peut · près de · un parc, un musée" },
+  { id:"s3", t:"Raconte ton week-end dernier (passé composé + imparfait).", v:"je suis allé(e) · j'ai vu · il faisait · c'était" },
+  { id:"s4", t:"Parle de tes projets d'avenir (université, carrière, voyages).", v:"je voudrais · j'ai l'intention de · plus tard · futur" },
+  { id:"s5", t:"Au restaurant : commande un repas, pose une question, demande l'addition.", v:"je voudrais · qu'est-ce que · l'addition, s'il vous plaît" },
+  { id:"s6", t:"Donne ton opinion : faut-il interdire les voitures au centre-ville ?", v:"à mon avis · je pense que · parce que · il faut que" }
+];
+
+/* ============================================================
+   STATE  (localStorage works on GitHub Pages over HTTPS)
+   ============================================================ */
+const KEY = "fr3_progress_v1";
+let STATE = { correct:{}, done:{}, drafts:{}, logs:[], stars:{} };
+try{ const s = localStorage.getItem(KEY); if(s) STATE = Object.assign(STATE, JSON.parse(s)); }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(STATE)); }catch(e){} }
+
+const SECTIONS = [
+  {id:"accueil", label:"Accueil"},
+  {id:"grammaire", label:"Grammaire"},
+  {id:"vocabulaire", label:"Vocabulaire"},
+  {id:"lecture", label:"Lecture"},
+  {id:"ecriture", label:"Écriture"},
+  {id:"ecoute", label:"Écoute"},
+  {id:"oral", label:"Expression orale"}
+];
+
+/* ============================================================
+   ANSWER CHECKING
+   ============================================================ */
+function judge(val, accepted, loose){
+  const n = norm(val);
+  if(!n) return "empty";
+  for(const a of accepted){ if(n === norm(a)) return "ok"; }
+  if(loose){ const ln = looseNorm(val); for(const a of accepted){ if(ln === looseNorm(a)) return "ok"; } }
+  for(const a of accepted){ if(deAccent(n) === deAccent(norm(a))) return "near"; }
+  if(loose){ const ln=looseNorm(val); for(const a of accepted){ if(ln.includes(looseNorm(a))||looseNorm(a).includes(ln)) return "near"; } }
+  return "no";
+}
+
+/* ============================================================
+   RENDER: quiz blocks (grammar + vocab)
+   ============================================================ */
+function renderQuiz(group){
+  const card = el("div","card");
+  card.append(el("h3",null,group.title));
+  if(group.help) card.append(el("div","help",group.help));
+
+  group.items.forEach((item,i)=>{
+    const itemId = group.id+"_"+i;
+    const q = el("div","q");
+    const line = el("div","q-text");
+    line.append(el("span","num",(i+1)+"."));
+    const parts = item.t.split("§");
+    parts.forEach((part,idx)=>{
+      // handle "full" marker right after §
+      let txt = part, isFull=false;
+      if(txt.startsWith("full")){ isFull=true; txt=txt.slice(4); }
+      line.append(document.createTextNode(txt));
+      if(idx < parts.length-1){
+        const nextFull = parts[idx+1].startsWith("full");
+        const inp = el("input","blank"+(nextFull?" full":""));
+        inp.type="text"; inp.autocapitalize="none"; inp.autocomplete="off"; inp.spellcheck=false;
+        inp.dataset.b = idx;
+        line.append(inp);
+      }
+    });
+    q.append(line);
+
+    const actions = el("div","q-actions");
+    const checkBtn = el("button","btn btn-primary btn-sm","Vérifier");
+    const fb = el("div","fb");
+    const revBtn = el("button","btn btn-ghost btn-sm","Réponse");
+    const reveal = el("div","reveal"); reveal.style.display="none";
+    reveal.innerHTML = "<b>Réponse :</b> " + item.a.map(opts=>opts[0]).join("  /  ");
+    actions.append(checkBtn, revBtn, fb);
+    q.append(actions, reveal);
+
+    const inputs = ()=> Array.from(line.querySelectorAll("input.blank"));
+
+    function check(){
+      let allOk=true, anyNear=false, filled=true;
+      inputs().forEach((inp,bi)=>{
+        const r = judge(inp.value, item.a[bi], group.loose);
+        inp.classList.remove("ok","no","near");
+        if(r==="ok") inp.classList.add("ok");
+        else if(r==="near"){ inp.classList.add("near"); anyNear=true; allOk=false; }
+        else if(r==="empty"){ filled=false; allOk=false; }
+        else { inp.classList.add("no"); allOk=false; }
+      });
+      fb.className="fb "+(allOk?"ok":anyNear?"near":"no");
+      if(allOk){ fb.textContent="✓ Correct !"; STATE.correct[itemId]=true; }
+      else if(!filled){ fb.className="fb"; fb.textContent="Complète le(s) blanc(s)."; }
+      else if(anyNear){ fb.textContent="Presque — vérifie les accents / l'orthographe."; }
+      else { fb.textContent="Pas tout à fait. Réessaie."; delete STATE.correct[itemId]; }
+      save(); updateProgress();
+    }
+    checkBtn.onclick = check;
+    revBtn.onclick = ()=>{ reveal.style.display = reveal.style.display==="none"?"block":"none"; };
+    inputs().forEach(inp=> inp.addEventListener("keydown",e=>{ if(e.key==="Enter") check(); }));
+    if(STATE.correct[itemId]) inputs().forEach(i=>i.classList.add("ok"));
+
+    card.append(q);
+  });
+
+  const foot = el("div","section-foot");
+  const score = el("div","score");
+  const allBtn = el("button","btn btn-accent btn-sm","Tout vérifier");
+  allBtn.onclick = ()=>{ card.querySelectorAll(".q .btn-primary").forEach(b=>b.click()); };
+  const updateScore = ()=>{
+    const total = group.items.length;
+    let got=0; group.items.forEach((_,i)=>{ if(STATE.correct[group.id+"_"+i]) got++; });
+    score.textContent = got+" / "+total;
+  };
+  group._updateScore = updateScore;
+  foot.append(allBtn, score);
+  card.append(foot);
+  setTimeout(updateScore,0);
+  return card;
+}
+
+/* ============================================================
+   RENDER: sections
+   ============================================================ */
+function el(tag,cls,txt){ const e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; }
+
+function buildAccueil(){
+  const s = el("section"); s.setAttribute("role","tabpanel"); s.dataset.id="accueil";
+  const lede = el("div","lede");
+  lede.append(el("div","eyebrow","Prépare le test Avant STAMP 4S"));
+  lede.append(el("h2","","Quatre compétences, un objectif"));
+  lede.append(el("p","","STAMP est un test de compétence (proficiency), pas un examen de contenu. Il mesure ce que tu sais FAIRE en français : lire, écrire, écouter et parler. Il n'y a pas de liste à mémoriser — le test s'adapte à ton niveau."));
+  lede.append(el("p","","Le meilleur entraînement, c'est de pratiquer un peu chaque jour. Utilise les onglets en haut. Tes réponses et ta progression sont sauvegardées sur cet appareil."));
+  s.append(lede);
+
+  const c = el("div","card");
+  c.append(el("h3",null,"Comment utiliser cette appli"));
+  const ul = el("ul","checklist");
+  ["Grammaire & Vocabulaire : tape ta réponse, puis « Vérifier » pour un retour immédiat.",
+   "Lecture : réponds, puis compare avec une réponse modèle.",
+   "Écriture : écris dans la zone de texte (sauvegardée), puis ouvre le modèle.",
+   "Écoute : ouvre un clip, puis remplis le journal d'écoute.",
+   "Expression orale : enregistre-toi et réécoute-toi.",
+   "Vise 30–45 min par jour, et un peu d'écoute à chaque fois."
+  ].forEach(t=>{const li=el("li",null,t);li.style.fontSize="14px";li.style.color="var(--ink)";ul.append(li);});
+  c.append(ul);
+  s.append(c);
+
+  const tip = el("div","card");
+  tip.style.borderLeft="4px solid var(--accent)";
+  tip.append(el("h3",null,"À vérifier avec le conseiller (counselor)"));
+  const tipP = el("p","","Le district fixe le niveau STAMP exact à atteindre pour valider French 3 (le score est sur une échelle de compétence, pas un pourcentage). Demande ce niveau-cible avant le test. Avant propose aussi un test d'entraînement officiel.");
+  tipP.style.color="var(--muted)";
+  tip.append(tipP);
+
+  s.append(tip);
+
+  const reset = el("button","reset","Réinitialiser toute ma progression");
+  reset.onclick = ()=>{ if(confirm("Effacer toutes tes réponses et brouillons sauvegardés sur cet appareil ?")){ STATE={correct:{},done:{},drafts:{},logs:[],stars:{}}; save(); location.reload(); } };
+  const rwrap = el("div"); rwrap.style.textAlign="center"; rwrap.style.margin="18px 0"; rwrap.append(reset);
+  s.append(rwrap);
+  return s;
+}
+
+function buildGrammaire(){
+  const s = el("section"); s.setAttribute("role","tabpanel"); s.dataset.id="grammaire";
+  s.append(headLede("Grammaire","Les structures clés","Les structures que French 3 attend. Tape, vérifie, recommence. Le retour est immédiat."));
+  GRAMMAR.forEach(g=> s.append(renderQuiz(g)));
+  return s;
+}
+function buildVocabulaire(){
+  const s = el("section"); s.setAttribute("role","tabpanel"); s.dataset.id="vocabulaire";
+  s.append(headLede("Vocabulaire","Par thème","Étudie les listes (clique pour ouvrir), puis fais le petit quiz."));
+  VOCAB_TABLES.forEach(vt=>{
+    const d = el("details","vocab");
+    const sum = el("summary",null,vt.title);
+    d.append(sum);
+    const tbl = el("table"); const tb=el("tbody");
+    vt.rows.forEach(r=>{ const tr=el("tr"); tr.append(td(r[0],"fr"),td(r[1],"en"),td(r[2],"ex")); tb.append(tr); });
+    tbl.append(tb); d.append(tbl); s.append(d);
+  });
+  s.append(renderQuiz(VOCAB_QUIZ));
+  return s;
+}
+function buildLecture(){
+  const s = el("section"); s.setAttribute("role","tabpanel"); s.dataset.id="lecture";
+  s.append(headLede("Lecture","Compréhension écrite","Lis le texte, réponds dans ta tête ou à l'écrit, puis compare au modèle."));
+  const card = el("div","card");
+  const pass = el("div","passage");
+  pass.append(el("h4",null,READING.title));
+  READING.text.forEach(p=> pass.append(el("p",null,p)));
+  card.append(pass);
+  READING.questions.forEach((qq,i)=>{
+    const q = el("div","q");
+    const line = el("div","q-text");
+    line.append(el("span","num",(i+1)+"."), document.createTextNode(qq.q));
+    q.append(line);
+    const actions = el("div","q-actions");
+    const btn = el("button","btn btn-ghost btn-sm","Voir une réponse modèle");
+    const rev = el("div","reveal"); rev.style.display="none"; rev.innerHTML="<b>Modèle :</b> "+qq.m;
+    btn.onclick=()=> rev.style.display = rev.style.display==="none"?"block":"none";
+    actions.append(btn); q.append(actions, rev);
+    const dr = el("label","done-row");
+    const cb = el("input"); cb.type="checkbox"; const did="read_"+i;
+    cb.checked = !!STATE.done[did];
+    cb.onchange=()=>{ if(cb.checked)STATE.done[did]=true; else delete STATE.done[did]; save(); updateProgress(); };
+    dr.append(cb, document.createTextNode(" J'ai répondu à cette question"));
+    q.append(dr);
+    card.append(q);
+  });
+  s.append(card);
+  return s;
+}
+function buildEcriture(){
+  const s = el("section"); s.setAttribute("role","tabpanel"); s.dataset.id="ecriture";
+  s.append(headLede("Écriture","Expression écrite","Écris 6–10 phrases par sujet. Ton brouillon est sauvegardé. Ouvre le modèle pour comparer."));
+  WRITING.forEach(w=>{
+    const card = el("div","card");
+    card.append(el("h3",null,w.title));
+    const tag = el("div","help","Temps visé : "+w.tense+". "+w.prompt);
+    card.append(tag);
+    const ta = el("textarea"); ta.placeholder="Écris ici…"; ta.value = STATE.drafts[w.id]||"";
+    const wc = el("div","wc");
+    const count=()=>{ const n=(ta.value.trim().match(/\S+/g)||[]).length; wc.textContent=n+" mot"+(n===1?"":"s"); };
+    ta.addEventListener("input",()=>{ STATE.drafts[w.id]=ta.value; count(); save(); });
+    card.append(ta, wc);
+
+    const actions = el("div","q-actions");
+    const modelBtn = el("button","btn btn-primary btn-sm","Voir un modèle");
+    const model = el("div","model");
+    model.innerHTML = "<div class='label'>Réponse modèle</div>"+w.model;
+    const ulc = el("ul","checklist");
+    w.check.forEach(c=> ulc.append(el("li",null,"☐ "+c)));
+    model.append(ulc);
+    modelBtn.onclick=()=> model.classList.toggle("show");
+    const doneCb = el("label","done-row"); const cb=el("input"); cb.type="checkbox";
+    cb.checked=!!STATE.done[w.id]; cb.onchange=()=>{ if(cb.checked)STATE.done[w.id]=true; else delete STATE.done[w.id]; save(); updateProgress(); };
+    doneCb.append(cb, document.createTextNode(" Fait"));
+    actions.append(modelBtn, doneCb);
+    card.append(actions, model);
+    count();
+    s.append(card);
+  });
+  return s;
+}
+function buildEcoute(){
+  const s = el("section"); s.setAttribute("role","tabpanel"); s.dataset.id="ecoute";
+  s.append(headLede("Écoute","Compréhension orale","La compétence qui progresse le plus vite avec un peu d'écoute chaque jour. Commence par le niveau A2/B1."));
+  const card = el("div","card");
+  card.append(el("h3",null,"Ressources gratuites"));
+  LISTENING.forEach(r=>{
+    const a = el("a","res"); a.href=r.url; a.target="_blank"; a.rel="noopener";
+    a.innerHTML = "<span class='go'>↗</span><span class='lvl'>"+r.lvl+"</span><div class='t'>"+r.t+"</div><div class='d'>"+r.d+"</div>";
+    card.append(a);
+  });
+  s.append(card);
+
+  const log = el("div","card");
+  log.append(el("h3",null,"Journal d'écoute"));
+  log.append(el("div","help","Fais-le avec n'importe quel clip ci-dessus. Vise 1 entrée par jour (3 = section terminée)."));
+  const f1=field("Ressource / titre du clip","text","l_title");
+  const f2=field("Niveau","select","l_level",["A2","B1","B2"]);
+  const f3=field("Idée principale (1 phrase en français)","text","l_main");
+  const f4=field("3 mots nouveaux","text","l_words");
+  const f5=field("Ce qui était difficile","text","l_hard");
+  log.append(f1.wrap,f2.wrap,f3.wrap,f4.wrap,f5.wrap);
+  const addBtn = el("button","btn btn-accent btn-sm","Ajouter au journal"); addBtn.style.marginTop="6px";
+  const list = el("div","logs");
+  function renderLogs(){
+    list.innerHTML="";
+    if(!STATE.logs.length){ const e=el("div","wc","Aucune entrée pour l'instant."); list.append(e); }
+    STATE.logs.forEach((L,i)=>{
+      const it=el("div","log-item");
+      it.innerHTML = "<b>"+esc(L.title||"(sans titre)")+"</b> · "+esc(L.level||"")+"<br>"+
+        (L.main?("<i>"+esc(L.main)+"</i><br>"):"")+
+        (L.words?("Mots : "+esc(L.words)+"<br>"):"")+
+        (L.hard?("Difficile : "+esc(L.hard)):"");
+      const del=el("button","del","×"); del.onclick=()=>{ STATE.logs.splice(i,1); save(); renderLogs(); updateProgress(); };
+      it.append(del); list.append(it);
+    });
+  }
+  addBtn.onclick=()=>{
+    const entry={ title:f1.input.value.trim(), level:f2.input.value, main:f3.input.value.trim(), words:f4.input.value.trim(), hard:f5.input.value.trim(), date:Date.now() };
+    if(!entry.title){ toast("Ajoute au moins un titre."); return; }
+    STATE.logs.unshift(entry); save();
+    [f1,f3,f4,f5].forEach(f=>f.input.value="");
+    renderLogs(); updateProgress(); toast("Entrée ajoutée ✓");
+  };
+  log.append(addBtn, list);
+  renderLogs();
+  s.append(log);
+  return s;
+}
+function buildOral(){
+  const s = el("section"); s.setAttribute("role","tabpanel"); s.dataset.id="oral";
+  s.append(headLede("Expression orale","À voix haute","Enregistre-toi, réécoute-toi, recommence. Parle 45–90 secondes par sujet — sans tout lire."));
+  SPEAKING.forEach(sp=>{
+    const card = el("div","card");
+    card.append(el("h3",null,sp.t));
+    card.append(el("div","help","Vocabulaire utile : "+sp.v));
+    const row = el("div","rec-row");
+    const recBtn = el("button","btn btn-accent btn-sm","● Enregistrer");
+    const audioWrap = el("div"); audioWrap.style.width="100%";
+    row.append(recBtn);
+    card.append(row, audioWrap);
+
+    // self rating
+    const stars = el("div","stars"); stars.dataset.id=sp.id;
+    for(let i=1;i<=5;i++){ const st=el("span",null,"★"); st.dataset.v=i; stars.append(st); }
+    const setStars=(v)=>{ Array.from(stars.children).forEach(c=> c.classList.toggle("on", +c.dataset.v<=v)); };
+    setStars(STATE.stars[sp.id]||0);
+    stars.onclick=(e)=>{ if(e.target.dataset.v){ STATE.stars[sp.id]=+e.target.dataset.v; save(); setStars(+e.target.dataset.v); } };
+    const slabel = el("div","wc","Auto-évaluation (clarté + fluidité) :");
+    card.append(slabel, stars);
+
+    let rec=null, chunks=[], recording=false;
+    recBtn.onclick = async ()=>{
+      if(recording){ rec && rec.stop(); return; }
+      if(!navigator.mediaDevices || !window.MediaRecorder){ toast("Enregistrement non disponible sur ce navigateur."); return; }
+      try{
+        const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+        rec = new MediaRecorder(stream); chunks=[];
+        rec.ondataavailable = e=> chunks.push(e.data);
+        rec.onstop = ()=>{
+          const blob = new Blob(chunks,{type:rec.mimeType||"audio/webm"});
+          const url = URL.createObjectURL(blob);
+          audioWrap.innerHTML=""; const au=el("audio"); au.controls=true; au.src=url; audioWrap.append(au);
+          stream.getTracks().forEach(t=>t.stop());
+          recBtn.innerHTML="● Réenregistrer"; recBtn.classList.remove("btn-primary"); recBtn.classList.add("btn-accent");
+          recording=false;
+        };
+        rec.start(); recording=true;
+        recBtn.innerHTML="■ Arrêter"; recBtn.classList.remove("btn-accent"); recBtn.classList.add("btn-primary");
+      }catch(err){ toast("Micro refusé ou indisponible."); }
+    };
+    s.append(card);
+  });
+  const note = el("div","note","Astuce : les enregistrements restent sur cette page et disparaissent si tu la recharges — réécoute-toi tout de suite, puis recommence.");
+  s.append(note);
+  return s;
+}
+
+/* helpers */
+function headLede(eyebrow,title,desc){
+  const l=el("div","lede");
+  l.append(el("div","eyebrow",eyebrow));
+  l.append(el("h2","",title));
+  l.append(el("p","",desc));
+  return l;
+}
+function td(txt,cls){ return el("td",cls,txt); }
+function field(label,type,id,opts){
+  const wrap=el("div","field"); const lab=el("label",null,label); lab.htmlFor=id;
+  let input;
+  if(type==="select"){ input=el("select"); (opts||[]).forEach(o=>{const op=el("option",null,o);op.value=o;input.append(op);}); }
+  else { input=el("input"); input.type="text"; }
+  input.id=id;
+  wrap.append(lab,input); return {wrap,input};
+}
+function esc(s){ return (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c])); }
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove("show"),1900); }
+
+/* ============================================================
+   PROGRESS
+   ============================================================ */
+function sectionComplete(id){
+  if(id==="grammaire"){ return GRAMMAR.every(g=> g.items.every((_,i)=> STATE.correct[g.id+"_"+i])); }
+  if(id==="vocabulaire"){ return VOCAB_QUIZ.items.every((_,i)=> STATE.correct[VOCAB_QUIZ.id+"_"+i]); }
+  if(id==="lecture"){ return READING.questions.every((_,i)=> STATE.done["read_"+i]); }
+  if(id==="ecriture"){ return WRITING.every(w=> STATE.done[w.id]); }
+  if(id==="ecoute"){ return STATE.logs.length>=3; }
+  if(id==="oral"){ return SPEAKING.every(sp=> (STATE.stars[sp.id]||0)>0); }
+  return false;
+}
+function updateProgress(){
+  let done=0; const real=SECTIONS.filter(s=>s.id!=="accueil");
+  real.forEach(s=>{
+    const ok=sectionComplete(s.id);
+    if(ok)done++;
+    const tab=document.querySelector('.tab[data-id="'+s.id+'"]');
+    if(tab) tab.classList.toggle("done",ok);
+  });
+  const pct=Math.round(done/real.length*100);
+  document.getElementById("progFill").style.width=pct+"%";
+  document.getElementById("progText").textContent=done+" / "+real.length+" sections";
+  document.getElementById("progPct").textContent=pct+"%";
+  GRAMMAR.forEach(g=> g._updateScore && g._updateScore());
+  if(VOCAB_QUIZ._updateScore) VOCAB_QUIZ._updateScore();
+}
+
+/* ============================================================
+   BUILD + NAV
+   ============================================================ */
+const builders={accueil:buildAccueil,grammaire:buildGrammaire,vocabulaire:buildVocabulaire,lecture:buildLecture,ecriture:buildEcriture,ecoute:buildEcoute,oral:buildOral};
+const main=document.getElementById("main");
+const tabsEl=document.getElementById("tabs");
+const panels={};
+SECTIONS.forEach((s,i)=>{
+  const tab=el("button","tab"); tab.setAttribute("role","tab"); tab.dataset.id=s.id;
+  tab.innerHTML='<span class="dot"></span>'+s.label;
+  tab.onclick=()=>select(s.id);
+  tabsEl.append(tab);
+  const panel=builders[s.id](); panels[s.id]=panel; main.append(panel);
+});
+function select(id){
+  SECTIONS.forEach(s=>{
+    const on=s.id===id;
+    panels[s.id].classList.toggle("active",on);
+    const tab=document.querySelector('.tab[data-id="'+s.id+'"]');
+    tab.setAttribute("aria-selected",on?"true":"false");
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+  const tab=document.querySelector('.tab[data-id="'+id+'"]');
+  tab && tab.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});
+}
+select("accueil");
+updateProgress();
+</script>
+</body>
+</html>
